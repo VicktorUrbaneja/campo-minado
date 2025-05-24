@@ -1,5 +1,7 @@
 package com.vicktordev.cm.model;
 
+import com.vicktordev.cm.exceptions.ExplosaoException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +39,35 @@ public class Campo {
         } else {
             return false;
         }
-
     }
+
+    void alternarMarcacao() {
+        if (!aberto) {
+            marcado = !marcado;
+        }
+    }
+
+    boolean abrir() {
+
+        if (!aberto && !marcado) {
+            aberto = true;
+
+            if (minado) {
+                throw new ExplosaoException();
+            }
+
+            if (vizinhancaSegura()) {
+                vizinhos.forEach(v -> v.abrir());
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    boolean vizinhancaSegura() {
+        return vizinhos.stream().noneMatch(v -> v.minado);
+    }
+
+
 }
