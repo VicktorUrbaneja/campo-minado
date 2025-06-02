@@ -149,9 +149,9 @@ public class CampoTeste {
     }
 
     @Test
-    void testeSetAberto(){
+    void testeSetAberto() {
         campo.setAberto(true);
-        assertEquals(campo.isAberto(), true);
+        assertTrue(campo.isAberto());
     }
 
     @Test
