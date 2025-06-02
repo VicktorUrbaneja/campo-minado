@@ -149,6 +149,12 @@ public class CampoTeste {
     }
 
     @Test
+    void testeSetAberto(){
+        campo.setAberto(true);
+        assertEquals(campo.isAberto(), true);
+    }
+
+    @Test
     void testeObjetivoAlcancadoDesvendado() {
         campo.abrir();
         assertTrue(campo.objetivoAlcancado());

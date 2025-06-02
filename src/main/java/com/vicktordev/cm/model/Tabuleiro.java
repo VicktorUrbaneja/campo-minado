@@ -1,5 +1,7 @@
 package com.vicktordev.cm.model;
 
+import com.vicktordev.cm.exceptions.ExplosaoException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -23,10 +25,15 @@ public class Tabuleiro {
     }
 
     public void abrir(int linha, int coluna) {
-        campos.parallelStream()
-                .filter(c -> c.getLinha() == linha && c.getColuna() == coluna)
-                .findFirst()
-                .ifPresent(c -> c.abrir());
+        try {
+            campos.parallelStream()
+                    .filter(c -> c.getLinha() == linha && c.getColuna() == coluna)
+                    .findFirst()
+                    .ifPresent(c -> c.abrir());
+        } catch (ExplosaoException e) {
+            campos.forEach(c -> c.setAberto(true));
+            throw e;
+        }
     }
 
     public void alternarMarcacao(int linha, int coluna) {
@@ -75,10 +82,18 @@ public class Tabuleiro {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+
+        sb.append("  ");
+        for (int c = 0; c < colunas; c++) {
+            sb.append(" ");
+            sb.append(c);
+            sb.append(" ");
+        }
+        sb.append("\n");
         int i = 0;
-
         for (int l = 0; l < linhas; l++) {
-
+            sb.append(l);
+            sb.append(" ");
             for (int c = 0; c < colunas; c++) {
                 sb.append(" ");
                 sb.append(campos.get(i));

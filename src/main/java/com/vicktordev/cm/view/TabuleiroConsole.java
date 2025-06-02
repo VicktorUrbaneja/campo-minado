@@ -50,15 +50,17 @@ public class TabuleiroConsole {
                         .map(e -> Integer.parseInt(e.trim()))
                         .iterator();
 
-                digitado = capturarValorDigitado("1 - Abrir ou 2 - Marcar");
+                digitado = capturarValorDigitado("1 - Abrir ou 2 - (Des)Marcar: ");
                 if ("1".equals(digitado)) {
                     tabuleiro.abrir(xy.next(), xy.next());
                 } else if ("2".equals(digitado)) {
                     tabuleiro.alternarMarcacao(xy.next(), xy.next());
                 }
             }
+            System.out.println(tabuleiro);
             System.out.println("Você ganhou!!!");
         } catch (ExplosaoException e) {
+            System.out.println(tabuleiro);
             System.out.println("Você perdeu!");
         }
     }
