@@ -10,5 +10,6 @@ public class Application {
         Tabuleiro tabuleiro = new Tabuleiro(6, 6, 9);
         new TabuleiroConsole(tabuleiro);
 
+
     }
 }
